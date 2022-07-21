@@ -25,10 +25,11 @@ hs_err_pid*
 
 # Ignore Gradle project-specific cache directory
 .gradle
-/buildSrc/.gradle/
+/buildSrc/.gradle
 
 # Ignore Gradle build output directory
 build
+/buildSrc/build
 out
 
 #Idea
