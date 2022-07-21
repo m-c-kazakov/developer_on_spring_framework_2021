@@ -1,6 +1,6 @@
 package com.otus.homework.book_catalog_with_mongodb.service
 
-import com.otus.homework.book_catalog_with_mongodb.dao.BookDao
+import com.otus.homework.book_catalog_with_mongodb.dao.BookRepository
 import com.otus.homework.book_catalog_with_mongodb.dto.BookDtoToCreate
 import com.otus.homework.book_catalog_with_mongodb.dto.BookDtoToUpdate
 import com.otus.homework.book_catalog_with_mongodb.model.*
@@ -10,17 +10,17 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 open class BookServiceImpl(
-    private val bookDao: BookDao,
+    private val bookRepository: BookRepository,
 ) : BookService {
 
     @Transactional(readOnly = true)
     override fun findAll(): List<Book> {
-        return bookDao.findAll()
+        return bookRepository.findAll()
     }
 
     @Transactional(readOnly = true)
     override fun findById(id: String): Book {
-        return bookDao
+        return bookRepository
             .findById(id)
             .orElseThrow()
     }
@@ -32,7 +32,7 @@ open class BookServiceImpl(
             genre = dto.genre
             bookComments = dto.bookComments
         }
-        return bookDao.save(book)
+        return bookRepository.save(book)
     }
 
     override fun update(dto: BookDtoToUpdate): Book {
@@ -46,10 +46,10 @@ open class BookServiceImpl(
                 .flatten()
                 .distinct()
         }
-        return bookDao.save(book)
+        return bookRepository.save(book)
     }
 
     override fun deleteById(id: String) {
-        bookDao.deleteById(id)
+        bookRepository.deleteById(id)
     }
 }

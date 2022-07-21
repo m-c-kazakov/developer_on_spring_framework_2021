@@ -3,10 +3,10 @@ package com.otus.homework.book_catalog_with_mongodb.model
 import org.springframework.data.mongodb.core.mapping.Document
 @Document("books")
 data class Book(
-    var name: String,
-    var author: String,
-    var genre: String,
-    var bookComments: List<String>
+    var name: String = "",
+    var author: String = "",
+    var genre: String = "",
+    var bookComments: List<String> = mutableListOf()
 ) : UniqueIdentifier() {
 }
 
