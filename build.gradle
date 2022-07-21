@@ -2,13 +2,33 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.7.0'
 }
 
-group 'org.otus'
+
 version '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
-}
+allprojects {
+    group 'org.otus'
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    apply plugin: "io.spring.dependency-management"
+    dependencyManagement {
+        dependencies {
+            imports {
+                mavenBom("org.springframework.boot:spring-boot-dependencies:${Versions.springBootDependencies}")
+            }
+        }
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            failOnVersionConflict() // сборка падает в случае появления конфликта между зависимостями
+        }
+        resolutionStrategy {
+            // Явно указать какую версию зависимости взять
+            // при появлении конфликта между зависимостями
+        }
+    }
 }
