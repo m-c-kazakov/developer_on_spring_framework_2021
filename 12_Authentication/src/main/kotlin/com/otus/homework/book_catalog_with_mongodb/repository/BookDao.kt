@@ -1,4 +1,4 @@
-package com.otus.homework.book_catalog_with_mongodb.dao
+package com.otus.homework.book_catalog_with_mongodb.repository
 
 import com.otus.homework.book_catalog_with_mongodb.model.Book
 import org.springframework.data.domain.Page

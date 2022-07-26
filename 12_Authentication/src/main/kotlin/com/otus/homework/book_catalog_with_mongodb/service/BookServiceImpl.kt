@@ -1,6 +1,6 @@
 package com.otus.homework.book_catalog_with_mongodb.service
 
-import com.otus.homework.book_catalog_with_mongodb.dao.BookDao
+import com.otus.homework.book_catalog_with_mongodb.repository.BookDao
 import com.otus.homework.book_catalog_with_mongodb.dto.BookDtoToCreate
 import com.otus.homework.book_catalog_with_mongodb.dto.BookDtoToUpdate
 import com.otus.homework.book_catalog_with_mongodb.model.*
