@@ -10,5 +10,6 @@ public interface Versions {
     String slf4jApi = "1.7.36";
     String log4jCore = "2.18.0";
     String testcontainers = "1.17.3";
+    String springSecurityTest = "5.7.2";
 
 }
