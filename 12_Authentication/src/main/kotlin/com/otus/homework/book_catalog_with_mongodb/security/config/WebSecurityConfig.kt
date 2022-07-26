@@ -42,7 +42,7 @@ open class WebSecurityConfig : WebMvcConfigurer {
                     .usernameParameter("username")
                     .passwordParameter("password")
 //                    .loginPage("/login")
-                    .successForwardUrl("/")
+//                    .successForwardUrl("/")
             }
             .csrf()
             .disable()

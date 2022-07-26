@@ -54,9 +54,11 @@ function App() {
 
     function findAllBook() {
         let booksData = []
+        console.log(securityCookiesData.authentication)
         if (securityCookiesData.authentication) {
             axios.get(baseUrl + '/api/v1/books', config)
                 .then(response => {
+                    console.log(response.data)
                     response.data
                         .map((book) => responseMapToBookData(book))
                         .forEach((book) => booksData.push(book))
@@ -122,8 +124,6 @@ function App() {
 
     const handleSubmitUser = (event) => {
         event.preventDefault();
-        console.log(userData.userName)
-        console.log(userData.userPassword)
 
         if (userData.submitType === 'Create') {
             console.log("isCreate")
@@ -139,14 +139,17 @@ function App() {
             axios.post(baseUrl + '/login', {
                 username:  userData.userName,
                 password: userData.userPassword
-            }, config).then(response => {
-                console.log(response)
-                console.log(response.headers)
-                // if (response.status === 200) {
-                //     setSecurityCookiesData({
-                //         authentication: true
-                //     })
-                // }
+            }, {
+                headers: {
+                    // 'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+                if (response.status === 200) {
+                    setSecurityCookiesData({
+                        authentication: true
+                    })
+                }
             })
         } else {
             console.log("Не известный submitType: " + userData)
