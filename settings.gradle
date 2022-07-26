@@ -1,6 +1,5 @@
 rootProject.name = 'developer_on_spring_framework_2021'
 
-
 include '8_book_catalog_with_mongoDb'
 include '10_REST_JS'
 include '11_WebFlux'

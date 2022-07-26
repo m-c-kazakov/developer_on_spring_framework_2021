@@ -3,7 +3,8 @@ package com.otus.homework.book_catalog_with_mongodb.service
 import com.otus.homework.book_catalog_with_mongodb.dao.BookRepository
 import com.otus.homework.book_catalog_with_mongodb.dto.BookDtoToCreate
 import com.otus.homework.book_catalog_with_mongodb.dto.BookDtoToUpdate
-import com.otus.homework.book_catalog_with_mongodb.model.*
+import com.otus.homework.book_catalog_with_mongodb.model.Book
+import com.otus.homework.book_catalog_with_mongodb.model.book
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -51,5 +52,30 @@ open class BookServiceImpl(
 
     override fun deleteById(id: String) {
         bookRepository.deleteById(id)
+    }
+
+    override fun findAllAuthors(): List<String> {
+
+        return bookRepository
+            .findAllAuthors()
+            .map { it.author }
+    }
+
+    override fun findAllGenre(): List<String> {
+        return bookRepository
+            .findAllGenre()
+            .map { it.genre }
+    }
+
+    override fun findByAuthor(author: String): Book {
+        return bookRepository.findByAuthor(author)
+    }
+
+    override fun updateAuthorName(bookId: String, author: String): Book {
+        return bookRepository
+            .findById(bookId)
+            .map { it.apply { this.author = author } }
+            .map { bookRepository.save(it) }
+            .orElseThrow()
     }
 }

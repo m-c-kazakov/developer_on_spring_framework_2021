@@ -50,11 +50,12 @@ class BookRepositoryTest : IntegrationTestBased() {
     @Test
     fun `сделаем редактирование авторов`() {
 
+        val newAuthorName = "author9999"
         val book = bookRepository.save(Book("name", "author4", "genre2", mutableListOf("Comment")))
         with(book) {
-            this.author = "author9999"
+            this.author = newAuthorName
         }
         bookRepository.save(book)
-        assertThat(bookRepository.findById(book.id).orElseThrow()).isEqualTo(book)
+        assertThat(bookRepository.findById(book.id).orElseThrow()).extracting { book.author }.isEqualTo(newAuthorName)
     }
 }

@@ -15,4 +15,13 @@ interface BookService {
     fun update(dto: BookDtoToUpdate): Book
 
     fun deleteById(id: String)
+
+    fun findAllAuthors():List<String>
+
+    fun findAllGenre():List<String>
+
+    fun findByAuthor(author: String):Book
+
+    fun updateAuthorName(bookId: String, author: String):Book
+
 }

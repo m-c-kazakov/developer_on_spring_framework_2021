@@ -27,12 +27,32 @@ class ShellController(val bookService: BookService) {
     }
 
     @ShellMethod(key = ["updateBook", "ub"], value = "update book")
-    fun updateBook(@ShellOption  book: BookDtoToUpdate) {
+    fun updateBook(@ShellOption book: BookDtoToUpdate) {
         bookService.update(book)
     }
 
     @ShellMethod(key = ["removeBook", "rb"], value = "remove book")
     fun remove(@ShellOption bookId: String) {
         bookService.deleteById(bookId)
+    }
+
+    @ShellMethod(key = ["findAllAuthors", "faa"], value = "find All Authors")
+    fun findAllAuthors(): List<String> {
+        return bookService.findAllAuthors()
+    }
+
+    @ShellMethod(key = ["findAllGenre", "fag"], value = "find All Genre")
+    fun findAllGenre(): List<String> {
+        return bookService.findAllGenre()
+    }
+
+    @ShellMethod(key = ["findByAuthor", "fba"], value = "find By Author")
+    fun findByAuthor(@ShellOption author: String): Book {
+        return bookService.findByAuthor(author)
+    }
+
+    @ShellMethod(key = ["updateAuthorName", "uan"], value = "update Author Name")
+    fun updateAuthorName(@ShellOption bookId: String, @ShellOption author: String): Book {
+        return bookService.updateAuthorName(bookId, author)
     }
 }
