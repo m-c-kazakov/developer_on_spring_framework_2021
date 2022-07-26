@@ -7,6 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class User(
     val userName: String,
     val password: String,
-    val roles: MutableCollection<Role> = mutableListOf(),
+    val roles: MutableCollection<Role> = mutableListOf(Role.USER),
     var enabled: Boolean = true
 ) : UniqueIdentifier()
