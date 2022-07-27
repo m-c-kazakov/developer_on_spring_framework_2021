@@ -1,6 +1,8 @@
 package com.otus.homework.book_catalog_with_mongodb.security.config
 
+import com.otus.homework.book_catalog_with_mongodb.security.model.Role
 import org.springframework.context.annotation.Bean
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -33,12 +35,10 @@ open class WebSecurityConfig : WebMvcConfigurer {
 
         httpSecurity
             .authorizeHttpRequests {
-                it
-                    .antMatchers("/login", "/api/v1/users")
-                    .permitAll()
-                it
-                    .anyRequest()
-                    .authenticated()
+                it.antMatchers("/login").permitAll()
+                it.antMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
+                it.antMatchers(HttpMethod.GET, "/api/v1/users").hasAuthority(Role.ADMIN.name)
+                it.antMatchers(HttpMethod.POST, "/api/v1/books").hasAnyAuthority(Role.USER.name, Role.ADMIN.name)
             }
             .formLogin {
                 it.successHandler(AuthenticationSuccessHandler { request, response, authentication ->

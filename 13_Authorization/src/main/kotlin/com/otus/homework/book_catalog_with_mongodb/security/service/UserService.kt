@@ -8,4 +8,6 @@ interface UserService {
 
     fun save(userDto: UserDto)
     fun findUserByName(userName: String): Optional<User>
+    fun findAll(): List<UserDto>
+    fun saveAdminUser(userDto: UserDto)
 }

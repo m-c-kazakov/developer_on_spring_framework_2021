@@ -10,7 +10,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.mock.web.MockHttpSession
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders
 import org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers
 import org.springframework.test.web.servlet.MockMvc
@@ -92,4 +92,55 @@ class WebSecurityConfigTest : IntegrationTestBased() {
             .andExpect(SecurityMockMvcResultMatchers.unauthenticated())
             .andExpect(MockMvcResultMatchers.status().is3xxRedirection)
     }
+
+    @Test
+    fun `admin can access getAllUsers resource`() {
+        userService.saveAdminUser(UserDto("admin", "admin"))
+
+        val httpSession = getMockHttpSession("admin", "admin")
+
+        mvc
+            .get("/api/v1/users") { session = httpSession }
+            .andExpect {
+                status { isOk() }
+            }
+    }
+
+    @Test
+    fun `user can access findAllBooks resource`() {
+        userService.save(UserDto("user", "user"))
+
+        val httpSession = getMockHttpSession("user", "user")
+
+        mvc
+            .get("/api/v1/books") { session = httpSession }
+            .andExpect {
+                status { isOk() }
+            }
+    }
+
+    @Test
+    fun `user cannot access getAllUsers resource`() {
+        userService.save(UserDto("user", "user"))
+        val httpSession = getMockHttpSession("user", "user")
+
+        mvc
+            .get("/api/v1/users") { session = httpSession }
+            .andExpect {
+                status { isForbidden() }
+            }
+    }
+
+    private fun getMockHttpSession(username: String, password:String) = mvc
+        .perform(
+            SecurityMockMvcRequestBuilders
+                .formLogin("/login")
+                .user(username)
+                .password(password)
+        )
+        .andExpect {
+            status(HttpStatus.SC_OK)
+        }
+        .andExpect(SecurityMockMvcResultMatchers.authenticated())
+        .andReturn().request.getSession(false) as MockHttpSession
 }
