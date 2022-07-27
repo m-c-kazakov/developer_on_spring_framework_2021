@@ -31,8 +31,8 @@ const config = {
     }
 };
 
-// axios.defaults.withCredentials = true
 // axios.defaults.xsrfHeaderName = "X-CSRFToken"
+axios.defaults.withCredentials = true
 
 
 
@@ -58,7 +58,7 @@ function App() {
         if (securityCookiesData.authentication) {
             axios.get(baseUrl + '/api/v1/books', config)
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     response.data
                         .map((book) => responseMapToBookData(book))
                         .forEach((book) => booksData.push(book))
@@ -141,7 +141,6 @@ function App() {
                 password: userData.userPassword
             }, {
                 headers: {
-                    // 'Content-Type': 'application/x-www-form-urlencoded'
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(response => {

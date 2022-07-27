@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
@@ -21,7 +22,9 @@ open class WebSecurityConfig : WebMvcConfigurer {
         registry
             .addMapping("/**")
             .allowedOrigins("http://192.168.1.4:3000/", "http://localhost:3000/")
-            .allowedMethods("*");
+            .allowedMethods("*")
+            .allowedHeaders("*")
+            .allowCredentials(true)
     }
 
 
@@ -38,11 +41,13 @@ open class WebSecurityConfig : WebMvcConfigurer {
                     .authenticated()
             }
             .formLogin {
-                it
-                    .usernameParameter("username")
-                    .passwordParameter("password")
-//                    .loginPage("/login")
-//                    .successForwardUrl("/")
+                it.successHandler(AuthenticationSuccessHandler { request, response, authentication ->
+                    run {
+
+                    }
+                })
+//                    .usernameParameter("username")
+//                    .passwordParameter("password")
             }
             .csrf()
             .disable()
