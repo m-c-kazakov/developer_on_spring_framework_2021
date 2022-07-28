@@ -1,0 +1,22 @@
+server:
+  port: 8081
+
+logging:
+  level:
+    root: INFO
+
+spring:
+  main:
+    allow-circular-references: true
+  data:
+    mongodb:
+      port: 27017
+  datasource:
+    url: jdbc:postgresql://localhost:5433/book-catalog-db
+    username: user
+    password: parol
+    driver-class-name: org.postgresql.Driver
+    sql:
+      init:
+        mode: always
+        schema-locations: schema.sql

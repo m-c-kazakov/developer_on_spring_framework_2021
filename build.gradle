@@ -31,6 +31,11 @@ allprojects {
 
             dependency("org.testcontainers:mongodb:${Versions.testcontainers}")
             dependency("org.testcontainers:junit-jupiter:${Versions.testcontainers}")
+
+            dependency("org.springframework.batch:spring-batch-test:${Versions.springBatchTest}")
+
+
+
         }
     }
 
