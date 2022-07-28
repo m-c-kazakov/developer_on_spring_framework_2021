@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional
 
 
 @Component
-open class PostgresBookWriter(
+open class PostgresWriter(
     private val repository: BookPostgresRepository,
 ) : ItemWriter<BookMongo> {
 

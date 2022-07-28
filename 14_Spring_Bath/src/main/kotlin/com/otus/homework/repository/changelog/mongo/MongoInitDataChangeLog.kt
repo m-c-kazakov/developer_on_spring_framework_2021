@@ -9,12 +9,12 @@ import com.otus.homework.repository.BookMongoRepository
 @ChangeLog(order = "001")
 class MongoInitDataChangeLog() {
 
-    @ChangeSet(order = "001", id = "dropDB", author = "revseev", runAlways = true)
+    @ChangeSet(order = "001", id = "dropDB", author = "kazakov", runAlways = true)
     fun dropDB(database: MongoDatabase) {
         database.drop()
     }
 
-    @ChangeSet(order = "002", id = "insert books", author = "revseev", runAlways = true)
+    @ChangeSet(order = "002", id = "insert books", author = "kazakov", runAlways = true)
     fun populateData(repository: BookMongoRepository) {
         val bookMongo1 = BookMongo("name1", "author1", "genre1", mutableListOf("comment1"))
         val bookMongo2 = BookMongo("name2", "author1", "genre2", mutableListOf("comment2"))
