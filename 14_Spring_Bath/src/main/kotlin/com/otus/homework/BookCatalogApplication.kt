@@ -1,8 +1,7 @@
-package com.otus.homework.batch
+package com.otus.homework
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-
 
 @SpringBootApplication
 open class BookCatalogApplication

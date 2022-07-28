@@ -1,5 +1,6 @@
-DROP TABLE IF EXISTS BOOKS;
+--liquibase formatted sql
 
+--changeset kazakov:1
 create table books
 (
     id            serial primary key,
@@ -8,3 +9,5 @@ create table books
     genre         varchar(255) not null,
     book_comments text[] not null
 );
+
+

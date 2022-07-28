@@ -20,3 +20,13 @@ spring:
       init:
         mode: always
         schema-locations: schema.sql
+
+
+mongock:
+  change-logs-scan-package:
+    - com.otus.homework.repository.changelog.mongo
+  runner-type: "InitializingBean"
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local

@@ -1,4 +1,4 @@
-package com.otus.homework.batch.model.mongo
+package com.otus.homework.model.mongo
 
 import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
