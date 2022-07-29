@@ -67,15 +67,20 @@ open class BookServiceImpl(
             .map { it.genre }
     }
 
-    override fun findByAuthor(author: String): Book {
+    override fun findByAuthor(author: String): List<Book> {
         return bookRepository.findByAuthor(author)
     }
 
-    override fun updateAuthorName(bookId: String, author: String): Book {
-        return bookRepository
-            .findById(bookId)
-            .map { it.apply { this.author = author } }
-            .map { bookRepository.save(it) }
-            .orElseThrow()
+    override fun updateAuthorName(currentName:String, updateName:String): List<Book> {
+        val booksWithUpdateAuthorName = bookRepository
+            .findByAuthor(currentName)
+            .map {
+                it.apply {
+                    this.author = updateName
+                }
+            }
+
+        return bookRepository.saveAll(booksWithUpdateAuthorName)
+
     }
 }

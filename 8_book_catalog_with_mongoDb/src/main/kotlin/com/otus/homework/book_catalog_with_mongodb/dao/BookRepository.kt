@@ -12,7 +12,7 @@ interface BookRepository : MongoRepository<Book, String> {
     @Query(value = "{ }", fields = "{'_id': 0, 'genre' : 1}", )
     fun findAllGenre() : List<Book>
 
-    fun findByAuthor(author: String) : Book
+    fun findByAuthor(author: String) : List<Book>
 
 
 

@@ -47,12 +47,12 @@ class ShellController(val bookService: BookService) {
     }
 
     @ShellMethod(key = ["findByAuthor", "fba"], value = "find By Author")
-    fun findByAuthor(@ShellOption author: String): Book {
+    fun findByAuthor(@ShellOption author: String): List<Book> {
         return bookService.findByAuthor(author)
     }
 
     @ShellMethod(key = ["updateAuthorName", "uan"], value = "update Author Name")
-    fun updateAuthorName(@ShellOption bookId: String, @ShellOption author: String): Book {
-        return bookService.updateAuthorName(bookId, author)
+    fun updateAuthorName(@ShellOption currentName: String, @ShellOption updateName: String): List<Book> {
+        return bookService.updateAuthorName(currentName, updateName)
     }
 }

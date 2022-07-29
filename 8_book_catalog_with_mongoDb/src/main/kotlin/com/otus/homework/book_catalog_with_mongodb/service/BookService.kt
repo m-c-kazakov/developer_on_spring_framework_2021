@@ -20,8 +20,8 @@ interface BookService {
 
     fun findAllGenre():List<String>
 
-    fun findByAuthor(author: String):Book
+    fun findByAuthor(author: String): List<Book>
 
-    fun updateAuthorName(bookId: String, author: String):Book
+    fun updateAuthorName(currentName:String, updateName:String): List<Book>
 
 }

@@ -63,4 +63,16 @@ class BookServiceImplTest : IntegrationTestBased() {
         bookService.deleteById(book.id)
         assertThrows<NoSuchElementException> { bookService.findById(book.id) }
     }
+
+    @Test
+    fun updateAuthorName() {
+        val book1 = bookService.add(BookDtoToCreate("name", "author", "genre", mutableListOf("Comment")))
+        val book2 = bookService.add(BookDtoToCreate("name", "author", "genre", mutableListOf("Comment")))
+
+        bookService.updateAuthorName("author", "qwerty")
+
+        assertThat(bookService.findById(book1.id)).extracting { it.author }.isEqualTo("qwerty")
+        assertThat(bookService.findById(book2.id)).extracting { it.author }.isEqualTo("qwerty")
+
+    }
 }
