@@ -5,6 +5,11 @@ import com.otus.homework.book_catalog_with_mongodb.dto.BookDtoToCreate
 import com.otus.homework.book_catalog_with_mongodb.dto.BookDtoToUpdate
 import com.otus.homework.book_catalog_with_mongodb.model.Book
 import com.otus.homework.book_catalog_with_mongodb.model.book
+import org.springframework.data.mongodb.core.MongoOperations
+import org.springframework.data.mongodb.core.query.Criteria
+import org.springframework.data.mongodb.core.query.Query
+import org.springframework.data.mongodb.core.query.Update
+import org.springframework.data.mongodb.core.query.isEqualTo
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -12,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 open class BookServiceImpl(
     private val bookRepository: BookRepository,
+    private val mongoOperations: MongoOperations
 ) : BookService {
 
     @Transactional(readOnly = true)
@@ -72,15 +78,19 @@ open class BookServiceImpl(
     }
 
     override fun updateAuthorName(currentName:String, updateName:String): List<Book> {
-        val booksWithUpdateAuthorName = bookRepository
-            .findByAuthor(currentName)
-            .map {
-                it.apply {
-                    this.author = updateName
-                }
-            }
 
-        return bookRepository.saveAll(booksWithUpdateAuthorName)
+        val query = Query.query(
+            Criteria
+                .where("author")
+                .isEqualTo(currentName)
+        )
+
+        val update = Update.update("author", updateName)
+
+
+
+        mongoOperations.updateMulti(query, update, Class.forName("com.otus.homework.book_catalog_with_mongodb.model.Book"))
+        return bookRepository.findByAuthor(updateName)
 
     }
 }
