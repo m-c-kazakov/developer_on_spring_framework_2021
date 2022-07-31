@@ -4,6 +4,9 @@ server:
 logging:
   level:
     root: INFO
+  file:
+    name: "logFile.log"
+    path: /
 
 spring:
   main:
@@ -11,3 +14,19 @@ spring:
   data:
     mongodb:
       port: 27017
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # Включить метрики, healthchecks и logfile.
+        include: metrics,health,logfile
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+  health:
+    defaults:
+      enabled: true
