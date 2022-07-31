@@ -1,0 +1,40 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id("org.springframework.boot")
+    id("io.spring.dependency-management")
+}
+
+version '0.0.1-SNAPSHOT'
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    implementation 'org.jline:jline-reader'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-integration'
+    implementation 'org.springframework.shell:spring-shell-starter'
+
+
+
+
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-logging'
+
+}
+
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "com.otus.homework.book_catalog_with_mongodb.GeneticAlgorithmApplication"
+    }
+
+    from {
+        duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
