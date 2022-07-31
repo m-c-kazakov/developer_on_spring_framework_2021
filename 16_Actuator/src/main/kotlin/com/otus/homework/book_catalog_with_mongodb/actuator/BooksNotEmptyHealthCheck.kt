@@ -9,14 +9,13 @@ import org.springframework.stereotype.Component
 class BooksNotEmptyHealthCheck(private val bookService: BookService) : HealthIndicator {
 
     override fun health(): Health = when {
-        bookService.findAll().isEmpty() ->
-            Health
-            .down()
-            .withDetail("message", "WARNING")
-            .build()
-        else -> Health
+        bookService.findAll().isNotEmpty() -> Health
             .up()
             .withDetail("message", "OK")
+            .build()
+        else -> Health
+            .down()
+            .withDetail("message", "WARNING")
             .build()
     }
 }
