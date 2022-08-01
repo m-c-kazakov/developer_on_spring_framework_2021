@@ -8,7 +8,7 @@ WORKDIR /opt/app
 
 # это инструкция, которая определяет переменную для передачи Docker’у во время сборки
 # Переменной JAR_FILE присваивается путь к jar- архиву
-ARG JAR_FILE=build/libs/rest_js-0.0.1-SNAPSHOT-plain.jar
+ARG JAR_FILE=build/libs/17_Docker-0.0.1-SNAPSHOT.jar
 
 # это инструкция, которая копирует файлы и директории в контейнер
 # Наш jar-файл, указанный в JAR_FILE, копируется в папку app, и копии задаётся имя app.jar

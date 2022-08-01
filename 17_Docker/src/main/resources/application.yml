@@ -10,4 +10,6 @@ spring:
     allow-circular-references: true
   data:
     mongodb:
-      port: 27017
+      host: ${DB_HOST}
+      port: ${DB_PORT}
+      database: ${DB_NAME}
