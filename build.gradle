@@ -44,6 +44,11 @@ allprojects {
             force("org.jline:jline-terminal:${Versions.jlineTerminal}")
             force("org.jetbrains:annotations:${Versions.jetbrainsAnnotations}")
             force("net.java.dev.jna:jna:${Versions.jna}")
+            force("org.hdrhistogram:HdrHistogram:2.1.12")
+            force("com.netflix.archaius:archaius-core:0.7.7")
+            force("com.google.guava:guava:16.0")
+            force("org.ow2.asm:asm:9.1")
+            force("org.springframework.cloud:spring-cloud-starter:3.1.3")
         }
     }
 }
