@@ -1,6 +1,5 @@
 package com.otus.homework.book_catalog_with_mongodb.service
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand
 import com.otus.homework.book_catalog_with_mongodb.dao.BookDao
 import com.otus.homework.book_catalog_with_mongodb.dto.BookDtoToCreate
 import com.otus.homework.book_catalog_with_mongodb.dto.BookDtoToUpdate
@@ -17,27 +16,23 @@ open class BookServiceImpl(
 ) : BookService {
 
     @Transactional(readOnly = true)
-    @HystrixCommand(groupKey = "BookService", commandKey = "findAll")
     override fun findAll(): List<Book> {
         return bookDao.findAll()
     }
 
     @Transactional(readOnly = true)
-    @HystrixCommand(groupKey = "BookService", commandKey = "findAll")
     override fun findAll(offset: Int, limit: Int): List<Book> {
         val pageRequest = PageRequest.of(offset, limit, Sort.Direction.DESC, "id")
         return bookDao.findAll(pageRequest).content
     }
 
     @Transactional(readOnly = true)
-    @HystrixCommand(groupKey = "BookService", commandKey = "findById")
     override fun findById(id: String): Book {
         return bookDao
             .findById(id)
             .orElseThrow()
     }
 
-    @HystrixCommand(groupKey = "BookService", commandKey = "add")
     override fun add(dto: BookDtoToCreate): Book {
         val book = book {
             bookName = dto.name
@@ -48,7 +43,6 @@ open class BookServiceImpl(
         return bookDao.save(book)
     }
 
-    @HystrixCommand(groupKey = "BookService", commandKey = "update")
     override fun update(dto: BookDtoToUpdate): Book {
 
 
@@ -63,7 +57,6 @@ open class BookServiceImpl(
         return bookDao.save(book)
     }
 
-    @HystrixCommand(groupKey = "BookService", commandKey = "deleteById")
     override fun deleteById(id: String): Result<Unit> {
         return Result.runCatching { bookDao.deleteById(id) }
     }
