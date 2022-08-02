@@ -6,4 +6,5 @@ import org.springframework.context.annotation.Configuration
 @EnableHystrix
 @Configuration
 open class HystrixConfig {
+
 }
