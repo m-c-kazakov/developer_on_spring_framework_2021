@@ -1,0 +1,34 @@
+server:
+  port: 8081
+
+logging:
+  level:
+    root: INFO
+
+spring:
+  main:
+    allow-circular-references: true
+  datasource:
+    url: jdbc:postgresql://localhost:5433/book-catalog-db
+    username: user
+    password: parol
+    driver-class-name: org.postgresql.Driver
+  data:
+    mongodb:
+      port: 27017
+  batch:
+    jdbc:
+      initialize-schema: ALWAYS
+    job:
+      enabled: true
+
+
+
+mongock:
+  change-logs-scan-package:
+    - com.otus.homework.repository.changelog.mongo
+  runner-type: "InitializingBean"
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
